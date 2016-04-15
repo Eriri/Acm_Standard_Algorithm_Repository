@@ -7,17 +7,11 @@ int StringRepresetation(string s,bool flag)//min->false max->true
     len=s.length();
     for(i=0,j=1,k=0;i<len&&j<len&&k<len;)
     {
-        if(s[(i+k)%len]==s[(j+k)%len])++k;
+        if(s[(i+k)%len]==s[(j+k)%len]) ++k;
         else
         {
-            if(flag?s[(i+k)%len]>s[(j+k)%len]:s[(j+k)%len]<s[(i+k)%len])
-            {
-                i=i+k+1;
-            }
-            else
-            {
-                j=j+k+1;
-            }
+            if(flag?s[(i+k)%len]>s[(j+k)%len]:s[(j+k)%len]<s[(i+k)%len])i=i+k+1;
+            else j=j+k+1;
             if(i==j)++j;
             k=0;
         }

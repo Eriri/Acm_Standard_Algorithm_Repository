@@ -1,47 +1,49 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define inf 500
-
-int n,m;
+#define maxn 1000
+	
 int matching;
-int pair_u[220],pair_v[220],dist[220];
+int pair_u[maxn],pair_v[maxn],dist[maxn];
+set<int> U,V;
+set<int>::iterator itr;
+
 struct node
 {
 	node():eid(0){};
-	node(int id):eid(id){};
 	int eid;
-}N[220];
+}N[maxn];
 
 struct edge
 {
-	edge(){vt=ne=0;};
+	edge(){};
 	edge(int v,int n):vt(v),ne(n){};
-	int vt;
-	int ne;
+	int vt,ne;
 }E[41000];
 
 bool bfs()
 {
-	int i;
 	int u,v;
 	queue<int> q;
-	for(i=1;i<=n;++i)
+	for(itr=U.begin();itr!=U.end();++i)
 	{
-		if(pair_u[i]==0){q.push(i);dist[i]=0;}
-		else dist[i]=inf;
+		if(pair_u[*itr]==0){q.push(*itr);dist[*itr]=0;}
+		else dist[*itr]=inf;
 	}
 	dist[0]=inf;
 	while(!q.empty())
 	{
-		u=q.front();
-		q.pop();
-		for(i=N[u].eid;i!=0;i=E[i].ne)
+		u=q.front();q.pop();
+		if(dist[u]<dist[0])
 		{
-			v=E[i].vt;
-			if(dist[pair_v[v]]==inf)
+			for(i=N[u].eid;i!=0;i=E[i].ne)
 			{
-				dist[pair_v[v]]=dist[u]+1;
-				q.push(pair_v[v]);
+				v=E[i].vt;
+				if(dist[pair_v[v]]==inf)
+				{
+					dist[pair_v[v]]=dist[u]+1;
+					q.push(pair_v[v]);
+				}
 			}
 		}
 	}
@@ -74,15 +76,13 @@ bool dfs(int u)
 
 void hopcroft_karp()
 {
-	memset(pair_u,0,sizeof(pair_u));
-	memset(pair_v,0,sizeof(pair_v));
 	while(bfs()==true)
 	{
-		for(int i=1;i<=n;++i)
+		for(itr=U.begin();itr!=U.end();++i)
 		{
-			if(pair_u[i]==0)
+			if(pair_u[*itr]==0)
 			{
-				if(dfs(i)==true) ++matching;
+				if(dfs(*itr)==true) ++matching;
 			}
 		}
 	}
@@ -97,20 +97,16 @@ int main()
 	memset(dist,0,sizeof(dist));
 	
 	int n,m,cnt;
-	int i,j,k;
 	int u,v;
-	
 	scanf("%d%d",&n,&m);
-	
 	matching=0;cnt=1;
-	
-	for(i=0;i<m;++i)
+	for(int i=0;i<m;++i)
 	{
 		scanf("%d%d",&u,&v);
-		E[cnt]=edge(v,N[u].eid);N[u]=cnt++;
-		E[cnt]=edge(u,N[v].eid);N[v]=cnt++;
+		U.insert(u);V.insert(v);
+		E[cnt]=edge(v,N[u].eid);N[u].eid=cnt++;
+		E[cnt]=edge(u,N[v].eid);N[v].eid=cnt++;
 	}
-	
 	hopcroft_karp();
 	printf("%d\n",matching);	
 }

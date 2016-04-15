@@ -1,8 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool ispri[1000];
-int pri[500],euler_val[1000];
+#define maxnum 1000
+#define prinum 500
+
+bool ispri[maxnum];
+int pri[prinum],euler_val[maxnum];
 
 int euler_func(int n)
 {
@@ -19,14 +22,8 @@ int euler_func(int n)
         for(int j=0;j<cnt&&pri[j]*i<=n;++j)
         {
             ispri[pri[j]*i]=true;
-            if(i%pri[j]==0)
-            {
-                euler_val[pri[j]*i]=euler_val[i]*pri[j];
-            }
-            else
-            {
-                euler_val[pri[j]*i]=euler_val[i]*(pri[j]-1);
-            }
+            if(i%pri[j]==0)euler_val[pri[j]*i]=euler_val[i]*pri[j];
+            else euler_val[pri[j]*i]=euler_val[i]*(pri[j]-1);
         }
     }
     return euler_val[n];    
