@@ -3,12 +3,12 @@
 #include <stdio.h>
 using namespace std;
 #define inf 0x7fffffff
-#define maxn 1000
-#define maxm 1000
+#define maxn 
+#define maxm 
 
 struct node
 {
-    node():eid(0),level(0){};
+    node():eid(0){};
     int eid,level;
 }N[maxn];
 
@@ -19,26 +19,24 @@ struct edge
     int vt,ne,cap,oed;
 }E[maxm];
 
-int n,m;
-int s,t;
-int stk[maxn],top;
+int n,s,t;
+int stk[maxm],top;
 int maxflow;
 
 bool build_level_network()
 {
-    N[s].level=0;
-    for (int i=0;i<n;++i) N[i].level=inf;
-	queue<int> wfs;
+    for (int i=s;i<=tn;++i) N[i].level=inf;
+	N[s].level=0;
+    queue<int> wfs;
 	int u,v,e;
 	wfs.push(s);
 	while (!wfs.empty())
 	{
 		u=wfs.front();
 		wfs.pop();
-		for(e=N[u].eid;e!=0;e=E[e].ne)
+		for(e=N[u].eid,v=E[e].vt;e!=0;e=E[e].ne,v=E[e].vt)
 		{
-			v=E[e].vt;
-			if(N[v].level>N[u].level+1)
+			if(N[v].level>N[u].level+1&&E[e].cap>0)
 			{
 				N[v].level=N[u].level+1;
 				if(N[v].level<N[t].level)wfs.push(v);
@@ -54,11 +52,11 @@ int update_flow(int n)
 	if(n==t)
 	{
 		f=inf;
-		for(int i=0;i<top;++i)f=min(f,E[i].cap);
+		for(int i=0;i<top;++i)f=min(f,E[stk[i]].cap);
 		for(int i=0;i<top;++i)
 		{
-			E[i].cap-=f;
-			E[E[i].oed].cap+=f;
+			E[stk[i]].cap-=f;
+            E[E[stk[i]].oed].cap+=f;
 		}
 		return f;
 	}
@@ -95,13 +93,8 @@ int main()
     int u,v,c;
     cnt=1;
     scanf("%d%d",&n,&m);
-    for(int i=0;i<m;++i)
-    {
-        scanf("%d%d%d",&u,&v,&c);
-        E[cnt]=edge(v,N[u].eid,c,cnt+1);N[u].eid=cnt++;
-        E[cnt]=edge(u,N[v].eid,0,cnt-1);N[v].eid=cnt++;
-    }
-    s=1,t=n;
+    build_map();//node_num [1...n]
+    s=0,t=n+1;
     maxflow=0;
     dinic();
     printf("%d\n",maxflow);
