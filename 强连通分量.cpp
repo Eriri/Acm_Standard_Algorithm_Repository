@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define maxn 10000
-#define maxe 10000
+#define maxm 10000
 int top,ts,scc;
 int dfn[maxn],low[maxn];
 bool isse[maxn],instk[maxn];
@@ -18,7 +18,7 @@ struct edge
 	edge(){};
 	edge(int v,int n):vt(v),ne(n){};
 	int vt,ne;
-}E[maxe];
+}E[maxm];
 
 void dfs(int n)
 {

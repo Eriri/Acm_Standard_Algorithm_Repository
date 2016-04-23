@@ -1,25 +1,18 @@
-#include<iostream>
-#include<cstring>
-#include<string>
-#include<string.h>
-#include<stdlib.h>
-#include<stdio.h>
-#include<set>
-#include<vector>
-#include<algorithm>
-#include<queue>
-#include<stack>
+#include<bits/stdc++.h>
 using namespace std;
+
+#define maxn
+#define maxm
 
 struct edge
 {
 	edge(){};
 	edge(int v,int n,int c):vt(v),ne(n),co(c){};
 	int vt,ne,co;
-}E[];
+}E[maxm];
 
-int node[],mindis[];
-bool vis[];
+int node[maxn],mindis[maxn];
+bool vis[maxn];
 
 struct cmp
 {
@@ -27,7 +20,6 @@ struct cmp
   	{
   		return mindis[x]>mindis[y];
   	}
-	
 };
 
 void spfa(int u)

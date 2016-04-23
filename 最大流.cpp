@@ -1,6 +1,4 @@
-#include <iostream>
-#include <queue>
-#include <stdio.h>
+#include<bits/stdc++.h>
 using namespace std;
 #define inf 0x7fffffff
 #define maxn 
