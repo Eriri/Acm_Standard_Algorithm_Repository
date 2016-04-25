@@ -30,11 +30,9 @@ void spfa(int u)
 	vis[u]=true;
 	while(!updt.empty())
 	{
-	 	v=updt.top();
-	 	updt.pop();
+	 	v=updt.top();updt.pop();
 		vis[v]=false;
-		e=node[v];
-		while(e!=0)
+		for(e=node[v];e!=0;e=E[e].ne)
 		{
 			if(mindis[E[e].vt]>mindis[v]+E[e].co)
 			{
@@ -45,7 +43,6 @@ void spfa(int u)
 					vis[E[e].vt]=true;
 				}
 			}
-			e=E[e].ne;
 		}
 	}
 }
