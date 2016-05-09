@@ -23,7 +23,7 @@ int maxflow;
 
 bool build_level_network()
 {
-    for (int i=s;i<=tn;++i) N[i].level=inf;
+    for (int i=s;i<=t;++i) N[i].level=inf;
 	N[s].level=0;
     queue<int> wfs;
 	int u,v,e;
