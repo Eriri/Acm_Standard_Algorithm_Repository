@@ -1,10 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int od[111111],dd[111111],ans;
+
+#define maxn
+#defien maxm
+
+int od[maxn],dd[maxn],ans;
 struct node
 {
 	int l,r,n;
-}tree[4000000];
+}tree[maxm];
 int init(int l,int r)
 {
 	int id=ans++;
