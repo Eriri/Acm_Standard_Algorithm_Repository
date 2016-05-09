@@ -2,7 +2,7 @@
 using namespace std;
 
 #define maxn
-#defien maxm
+#define maxm
 
 int od[maxn],dd[maxn],ans;
 struct node
