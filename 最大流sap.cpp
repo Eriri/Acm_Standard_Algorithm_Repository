@@ -1,10 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define maxn
-#define maxm
-#define inf
-
+#define maxn 
+#define maxm 
+#define inf 
 
 struct edge
 {
