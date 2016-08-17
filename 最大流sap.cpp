@@ -16,6 +16,12 @@ int N[maxn],now[maxn],dpth[maxn],vtn[maxn];
 int cnt,maxflow,tflow,s,t,d;
 bool found;
 
+void build(int u,int v,int v)
+{
+	E[cnt]=edge(v,N[u],c);now[u]=N[u]=cnt++;
+	E[cnt]=edge(u,N[v],0);now[v]=N[v]=cnt++;
+}
+
 void init_level_network()
 {
 	int u,v,e;
