@@ -28,6 +28,19 @@ void init(ll p)
 		inv[i]=inv[i+1]*(i+1)%p;
 }
 
+ll c0(ll n,ll m,ll p)
+{
+	if(n<0||m<0||n<m)return 0;
+	ll ans=1,a,b;
+	for(int i=1;i<=m;++i)
+	{
+		a=(n-m+i)%p;
+		b=i%p;
+		ans=ans*(a*fpow(b,p-2,p)%p)%p;
+	}
+	return ans;
+}
+
 ll c(ll n,ll m,ll p)
 {
 	if(n<0||m<0||n<m)return 0;
