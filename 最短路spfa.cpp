@@ -1,8 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define maxn
-#define maxm
+#define maxn 1000
+#define maxm 1000
+#define inf (0x3f3f3f3f)
 
 struct edge
 {
@@ -11,38 +12,22 @@ struct edge
 	int vt,ne,co;
 }E[maxm];
 
-int node[maxn],mindis[maxn];
+int N[maxn],mindis[maxn];
 bool vis[maxn];
 
-struct cmp
-{
-  	bool operator ()(int x,int y)
-  	{
-  		return mindis[x]>mindis[y];
-  	}
-};
+struct cmp{bool operator ()(int x,int y){return mindis[x]>mindis[y];}};
 
 void spfa(int u)
 {
-    priority_queue<int,vector<int>,cmp> updt;
-	int v,e;
-	updt.push(u);
-	vis[u]=true;
+	priority_queue<int,vector<int>,cmp> updt;
+	updt.push(u);vis[u]=true;memset(mindis,inf);mindis[u]=0;
 	while(!updt.empty())
 	{
-	 	v=updt.top();updt.pop();
-		vis[v]=false;
-		for(e=node[v];e!=0;e=E[e].ne)
+	 	u=updt.top();updt.pop();vis[u]=false;
+		for(int e=N[v];e;e=E[e].ne)if(mindis[E[e].vt]>mindis[u]+E[e].co)
 		{
-			if(mindis[E[e].vt]>mindis[v]+E[e].co)
-			{
-				mindis[E[e].vt]=mindis[v]+E[e].co;
-				if(vis[E[e].vt]==false)
-				{
-					updt.push(E[e].vt);
-					vis[E[e].vt]=true;
-				}
-			}
+			mindis[E[e].vt]=mindis[u]+E[e].co;
+			if(vis[E[e].vt]==false){updt.push(E[e].vt);vis[E[e].vt]=true;}
 		}
 	}
 }
