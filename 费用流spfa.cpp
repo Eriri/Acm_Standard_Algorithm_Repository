@@ -16,29 +16,22 @@ int N[maxn],mindis[maxn],pre[maxn],cnt,s,t,mincost;
 bool inq[maxn];
 
 void build(int u,int v,int c,int w)
-{
-	E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;
-	E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;
-}
+{E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
 
 bool spfa()
 {
-	int u,e;
 	queue<int> q;
-	memset(mindis,inf,sizeof(mindis));	
-	memset(inq,false,sizeof(inq));
+	memset(mindis,inf,sizeof(mindis));memset(inq,false,sizeof(inq));
 	q.push(s);mindis[s]=0;
 	while(!q.empty())
 	{
-		u=q.front();q.pop();inq[u]=false;
-		for(e=N[u];e;e=E[e].ne)
+		int u=q.front();q.pop();inq[u]=false;
+		for(int e=N[u];e;e=E[e].ne)
 		{
 			if(E[e].cap&&mindis[E[e].vt]>mindis[u]+E[e].wei)
 			{
-				mindis[E[e].vt]=mindis[u]+E[e].wei;
-				pre[E[e].vt]=e^1;
-				if(!inq[E[e].vt])
-				{q.push(E[e].vt);inq[E[e].vt]=true;}
+				mindis[E[e].vt]=mindis[u]+E[e].wei;pre[E[e].vt]=e^1;
+				if(!inq[E[e].vt]){q.push(E[e].vt);inq[E[e].vt]=true;}
 			}
 		}
 	}
@@ -58,10 +51,4 @@ void costflow()
 	}
 }
 
-int main()
-{
-	build_map();
-	costflow();	
-	printf("%d\n",mincost);	
-}
-
+int main(){}
