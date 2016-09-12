@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define maxn 
+#define maxn 1000
 
 typedef __int64 ll;
 
@@ -24,14 +24,5 @@ ll det(ll mtx[maxn][maxn],int rc,ll mod)
 	}
 	return (ans+mod)%mod;
 }
-
-
-
-
-
-
-
-
-
 
 int main(){}
