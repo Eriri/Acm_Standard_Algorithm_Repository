@@ -1,18 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-template<class T>class edge
+#define inf (0x3f3f3f3f)
+#define maxn 1000
+#define maxm 1000
+
+template<class T>
+struct edge
 {
-	public:
 	edge(){};
 	edge(int v,int n,T c):vt(v),ne(n),cap(c){};
 	int vt,ne;
 	T cap;
 };
 
-template<class T>class isap
+template<class T>
+struct isap
 {
-	public:
 	isap(){memset(N,0,sizeof(N));cnt=2;maxflow=0;};
 	isap(int _s,int _t):s(_s),t(_t),d(_t+1){memset(N,0,sizeof(N));cnt=2;maxflow=0;}
 	int cnt,s,t,d,N[maxn],now[maxn],dpth[maxn],vtn[maxn];
