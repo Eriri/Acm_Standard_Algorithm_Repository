@@ -31,3 +31,5 @@ void spfa(int u)
 		}
 	}
 }
+
+int main(){}
