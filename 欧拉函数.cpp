@@ -14,11 +14,7 @@ int euler_func(int n)
     euler_val[0]=euler_val[1]=1;
     for(int i=2;i<=n;++i)
     {
-        if(ispri[i]==false)
-        {
-            pri[cnt++]=i;
-            euler_val[i]=i-1;
-        }
+        if(ispri[i]==false){pri[cnt++]=i;euler_val[i]=i-1;}
         for(int j=0;j<cnt&&pri[j]*i<=n;++j)
         {
             ispri[pri[j]*i]=true;
@@ -30,10 +26,6 @@ int euler_func(int n)
 }
 
 int main()
-{
-	int n;
-    scanf("%d",&n);
-	printf("%d\n",euler_func(n));
-}
+{}
 
 
