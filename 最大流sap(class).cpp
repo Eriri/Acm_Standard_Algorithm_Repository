@@ -6,24 +6,21 @@ using namespace std;
 #define maxm 1000
 
 template<class T>
-struct edge
-{
-	edge(){};
-	edge(int v,int n,T c):vt(v),ne(n),cap(c){};
-	int vt,ne;
-	T cap;
-};
-
-template<class T>
 struct isap
 {
 	isap(){memset(N,0,sizeof(N));cnt=2;maxflow=0;};
 	isap(int _s,int _t):s(_s),t(_t),d(_t+1){memset(N,0,sizeof(N));cnt=2;maxflow=0;}
 	int cnt,s,t,d,N[maxn],now[maxn],dpth[maxn],vtn[maxn];
-	bool found;T maxflow,tflow;edge<T> E[maxm];
+	bool found;T maxflow,tflow;
+	struct edge
+	{
+		edge(){};
+		edge(int v,int n,T c):vt(v),ne(n),cap(c){};
+		int vt,ne;T cap;
+	}E[maxm];
 	void build(int u,int v,T c)
-	{E[cnt]=edge<T>(v,N[u],c);now[u]=N[u]=cnt++;
-	E[cnt]=edge<T>(u,N[v],0);now[v]=N[v]=cnt++;}
+	{E[cnt]=edge(v,N[u],c);now[u]=N[u]=cnt++;
+	E[cnt]=edge(u,N[v],0);now[v]=N[v]=cnt++;}
 	void sap(int u)
 	{
 		int v,e;T ct;
