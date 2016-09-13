@@ -51,7 +51,7 @@ struct zkw
 		mindis[t]=0;q.push(t);
 		while(!q.empty())
 		{
-			int u=q.front();vis[u]=false;
+			int u=q.front();q.pop();vis[u]=false;
 			for(int e=N[u];e;e=E[e].ne)if(E[e^1].cap&&mindis[E[e].vt]>mindis[u]+E[e^1].wei)
 			{
 				mindis[E[e].vt]=mindis[u]+E[e^1].wei;
