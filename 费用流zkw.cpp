@@ -20,8 +20,7 @@ struct zkw
 	int N[maxn],s,t,cnt;bool vis[maxn];
 	C maxflow;W mincost,mindis[maxn];
 	void build(int u,int v,C c,W w)
-	{E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;
-	E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
+	{E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
 	bool modify()
 	{
 		C add=inf;
@@ -44,6 +43,21 @@ struct zkw
 			if(nflow==f)break;
 		}
 		return nflow;
+	}
+	void spfa()//negative weight edge graph 
+	{
+		queue<int>q;
+		memset(mindis,inf,sizeof(mindis));memset(vis,false,sizeof(vis));
+		mindis[t]=0;q.push(t);
+		while(!q.empty())
+		{
+			int u=q.front();vis[u]=false;
+			for(int e=N[u];e;e=E[e].ne)if(E[e^1].cap&&mindis[E[e].vt]>mindis[u]+E[e^1].wei)
+			{
+				mindis[E[e].vt]=mindis[u]+E[e^1].wei;
+				if(!vis[E[e].vt]){q.push(E[e].vt);vis[E[e].vt]=true;}
+			}
+		}
 	}
 	W run()
 	{
