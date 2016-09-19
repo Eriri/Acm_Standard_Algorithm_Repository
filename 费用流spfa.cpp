@@ -43,9 +43,9 @@ struct mcmf
 		int u;C f;
 		while(spfa())
 		{
-			for(u=s,f=inf;u!=s;u=E[pre[u]].vt)
+			for(u=t,f=inf;u!=s;u=E[pre[u]].vt)
 				f=min(f,E[pre[u]^1].cap);
-			for(u=s;u!=s;u=E[pre[u]].vt)
+			for(u=t;u!=s;u=E[pre[u]].vt)
 				{E[pre[u]].cap+=f;E[pre[u]^1].cap-=f;};
 			mincost+=mindis[t]*f;maxflow+=f;
 		}
