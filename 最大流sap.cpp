@@ -19,20 +19,19 @@ struct isap
 		int vt,ne;T cap;
 	}E[maxm];
 	void build(int u,int v,T c)
-	{E[cnt]=edge(v,N[u],c);now[u]=N[u]=cnt++;
-	E[cnt]=edge(u,N[v],0);now[v]=N[v]=cnt++;}
+	{E[cnt]=edge(v,N[u],c);now[u]=N[u]=cnt++;E[cnt]=edge(u,N[v],0);now[v]=N[v]=cnt++;}
 	void sap(int u)
 	{
 		int v,e;T ct;
 		if(u==t){found=true;maxflow+=tflow;return;}
-		for(e=now[u],ct=tflow,v=E[e].vt;e;e=E[e].ne,v=E[e].vt,tflow=ct)if(E[e].cap&&dpth[v]+1==dpth[u])
+		for(e=now[u],ct=tflow,v=E[e].vt;e;e=E[e].ne,v=E[e].vt,tflow=ct)if(E[e].cap>0&&dpth[v]+1==dpth[u])
 		{now[u]=e;tflow=min(tflow,E[e].cap);sap(v);if(dpth[s]==d)return;if(found)break;}
 		if(found){E[e].cap-=tflow;E[e^1].cap+=tflow;}
 		else
 		{
 			if(--vtn[dpth[u]]==0){dpth[s]=d;return;}
 			now[u]=N[u];v=d-1;
-			for(e=N[u];e;e=E[e].ne)if(E[e].cap&&dpth[E[e].vt]<v){v=dpth[E[e].vt];now[u]=e;}
+			for(e=N[u];e;e=E[e].ne)if(E[e].cap>0&&dpth[E[e].vt]<v){v=dpth[E[e].vt];now[u]=e;}
 			dpth[u]=v+1;++vtn[dpth[u]];
 		}
 	}
@@ -46,8 +45,7 @@ struct isap
 			for(e=N[u],v=E[e].vt;e;e=E[e].ne,v=E[e].vt)
 			if(v!=t&&!dpth[v]){dpth[v]=dpth[u]+1;++vtn[dpth[v]];q.push(v);}
 		}
-		while(dpth[s]<d)
-		{tflow=inf;found=false;sap(s);}
+		while(dpth[s]<d){tflow=inf;found=false;sap(s);}
 		return maxflow;
 	}
 };
