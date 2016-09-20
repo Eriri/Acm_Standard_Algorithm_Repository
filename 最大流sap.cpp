@@ -51,3 +51,4 @@ struct isap
 };
 
 int main(){}
+//退流操作需去掉当前边优化 
