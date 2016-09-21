@@ -17,7 +17,7 @@ struct isap
 		edge(int v,int n,T c):vt(v),ne(n),cap(c){};
 		int vt,ne;T cap;
 	}E[maxm];
-	void init(int _s,int _t){s=_s;t=_t;memset(N,0,sizeof(N));cnt=2;maxflow=0;}
+	void init(int _s,int _t){s=_s;t=_t;d=_t+1;memset(N,0,sizeof(N));cnt=2;maxflow=0;}
 	void build(int u,int v,T c)
 	{E[cnt]=edge(v,N[u],c);now[u]=N[u]=cnt++;E[cnt]=edge(u,N[v],0);now[v]=N[v]=cnt++;}
 	void sap(int u)
