@@ -8,8 +8,7 @@ using namespace std;
 template<class C,class W>
 struct mcmf
 {
-	mcmf(){memset(N,0,sizeof(N));cnt=2;maxflow=mincost=0;};
-	mcmf(int _s,int _t):s(_s),t(_t){memset(N,0,sizeof(N));cnt=2;maxflow=mincost=0;};
+	mcmf(){}
 	int N[maxn],pre[maxn],cnt,s,t;W mindis[maxn],mincost;C maxflow;bool inq[maxn];
 	struct edge
 	{	
@@ -17,13 +16,13 @@ struct mcmf
 		edge(int v,int n,C c,W w):vt(v),ne(n),cap(c),wei(w){};
 		int vt,ne;C cap;W wei;
 	}E[maxm];
-	void build(int u,int v,C c,W w)
-	{E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
+	void init(int _s,int _t){s=_s;t=_t;memset(N,0,sizeof(N));cnt=2;maxflow=mincost=0;}
+	void build(int u,int v,C c,W w){E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
 	bool spfa()
 	{
-		queue<int> q;
+		queue<int> q;W inff;
 		memset(mindis,inf,sizeof(mindis));memset(inq,false,sizeof(inq));
-		q.push(s);mindis[s]=0;
+		q.push(s);mindis[s]=0;inff=mindis[t];
 		while(!q.empty())
 		{
 			int u=q.front();q.pop();inq[u]=false;
@@ -36,7 +35,7 @@ struct mcmf
 				}
 			}
 		}
-		return mindis[t]<inf;
+		return mindis[t]<inff;
 	}
 	W costflow()
 	{
