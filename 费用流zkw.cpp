@@ -9,8 +9,7 @@ using namespace std;
 template<class C,class W>
 struct zkw
 {
-	zkw(){cnt=2;memset(N,0,sizeof(N));};
-	zkw(int _s,int _t):s(_s),t(_t){cnt=2;memset(N,0,sizeof(N));};
+	zkw(){}
 	struct edge
 	{
 		edge(){};
@@ -21,11 +20,12 @@ struct zkw
 	C maxflow;W mincost,mindis[maxn];
 	void build(int u,int v,C c,W w)
 	{E[cnt]=edge(v,N[u],c,w);N[u]=cnt++;E[cnt]=edge(u,N[v],0,-w);N[v]=cnt++;}
+	void init(int _s,int _t){s=_s;t=_t;memset(N,0,sizeof(N));cnt=2;maxflow=mincost=0;}
 	bool modify()
 	{
 		C add=inf;
 		for(int u=s;u<=t;++u)if(vis[u])
-			for(int e=N[u];e;e=E[e].ne)if(!vis[E[e].vt]&&E[e].cap)
+			for(int e=N[u];e;e=E[e].ne)if(!vis[E[e].vt]&&E[e].cap>0)
 				add=min(add,mindis[E[e].vt]+E[e].wei-mindis[u]);
 		if(add==inf)return false;
 		for(int u=s;u<=t;++u)if(vis[u])mindis[u]+=add;
@@ -36,7 +36,7 @@ struct zkw
 		if(u==t){maxflow+=f;mincost+=mindis[s]*f;return f;}
 		C nflow,tflow;nflow=0;vis[u]=true;
 		for(int e=N[u];e;e=E[e].ne)
-		if(!vis[E[e].vt]&&E[e].cap&&mindis[E[e].vt]+E[e].wei==mindis[u])
+		if(!vis[E[e].vt]&&E[e].cap>0&&mindis[E[e].vt]+E[e].wei==mindis[u])
 		{
 			tflow=dfs(E[e].vt,min(E[e].cap,f-nflow));
 			E[e].cap-=tflow;E[e^1].cap+=tflow;nflow+=tflow;
@@ -52,7 +52,7 @@ struct zkw
 		while(!q.empty())
 		{
 			int u=q.front();q.pop();vis[u]=false;
-			for(int e=N[u];e;e=E[e].ne)if(E[e^1].cap&&mindis[E[e].vt]>mindis[u]+E[e^1].wei)
+			for(int e=N[u];e;e=E[e].ne)if(E[e^1].cap>0&&mindis[E[e].vt]>mindis[u]+E[e^1].wei)
 			{
 				mindis[E[e].vt]=mindis[u]+E[e^1].wei;
 				if(!vis[E[e].vt]){q.push(E[e].vt);vis[E[e].vt]=true;}
