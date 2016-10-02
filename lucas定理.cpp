@@ -9,12 +9,7 @@ ll fac[maxn],rfac[maxn],inv[maxn];
 ll fpow(ll b,ll p,ll m)
 {
 	ll r=1;
-	while(p)
-	{
-		if(p&1)r=r*b%m;
-		b=b*b%m;
-		p=p/2;
-	}
+	for(;p;p>>=1){if(p&1)r=r*b%m;b=b*b%m;} 
 	return r;
 }
 
@@ -31,13 +26,10 @@ void init(ll p)
 ll c0(ll n,ll m,ll p)
 {
 	if(n<0||m<0||n<m)return 0;
-	ll ans=1,a,b;
+	ll ans=1,a=1,b=1;
 	for(int i=1;i<=m;++i)
-	{
-		a=(n-m+i)%p;
-		b=i%p;
-		ans=ans*(a*fpow(b,p-2,p)%p)%p;
-	}
+	{a=a*(n-m+i)%p;b=b*i%p;}
+	ans=a*fpow(b,p-2,p)%p;
 	return ans;
 }
 
@@ -51,12 +43,7 @@ ll lucas(ll n,ll m,ll p)
 {
 	if(n<0||m<0||n<m)return 0;
 	ll ans=1;
-	while(n||m)
-	{
-		ans=ans*c(n%p,m%p,p)%p;
-		n/=p;
-		m/=p;
-	}
+	for(;n||m;n/=p,m/=p)ans=ans*c(n%p,m%p,p)%p;
 	return ans;
 }
 
