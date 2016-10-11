@@ -1,11 +1,9 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 #define maxnum 1000
 #define prinum 500
 
-bool ispri[maxnum];
-int pri[prinum],euler_val[maxnum];
+bool ispri[maxnum];int pri[prinum],euler_val[maxnum];
 
 int euler_func(int n)
 {
@@ -22,10 +20,7 @@ int euler_func(int n)
             else euler_val[pri[j]*i]=euler_val[i]*(pri[j]-1);
         }
     }
-    return euler_val[n];    
+    return euler_val[n]; 
 }
 
-int main()
-{}
-
-
+int main(){};

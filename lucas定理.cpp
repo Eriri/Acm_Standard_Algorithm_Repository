@@ -7,30 +7,22 @@ typedef __int64 ll;
 ll fac[maxn],rfac[maxn],inv[maxn];
 
 ll fpow(ll b,ll p,ll m)
-{
-	ll r=1;
-	for(;p;p>>=1){if(p&1)r=r*b%m;b=b*b%m;} 
-	return r;
-}
+{ll r=1;for(;p;p>>=1){if(p&1)r=r*b%m;b=b*b%m;} return r;}
 
-void init(ll p)
+void init(int size,ll p)
 {
 	fac[0]=fac[1]=1;
-	for(int i=2;i<p;++i)
-		fac[i]=fac[i-1]*i%p;
-	inv[p-1]=fpow(fac[p-1],p-2,p);
-	for(int i=p-2;i>=0;--i)
-		inv[i]=inv[i+1]*(i+1)%p;
+	for(int i=2;i<=size;++i)fac[i]=fac[i-1]*i%p;
+	inv[size]=fpow(fac[size],p-2,p);
+	for(int i=size-1;i>=0;--i)inv[i]=inv[i+1]*(i+1)%p;
 }
 
 ll c0(ll n,ll m,ll p)
 {
 	if(n<0||m<0||n<m)return 0;
-	ll ans=1,a=1,b=1;
-	for(int i=1;i<=m;++i)
-	{a=a*(n-m+i)%p;b=b*i%p;}
-	ans=a*fpow(b,p-2,p)%p;
-	return ans;
+	ll a=1,b=1;
+	for(int i=1;i<=m;++i){a=a*(n-m+i)%p;b=b*i%p;}
+	return a*fpow(b,p-2,p)%p;
 }
 
 ll c(ll n,ll m,ll p)
@@ -47,10 +39,4 @@ ll lucas(ll n,ll m,ll p)
 	return ans;
 }
 
-int main()
-{
-	ll n,m,p;
-	init(p);
-	cin>>n>>m>>p;
-	cout<<lucas(n,m,p)<<endl;
-}
+int main(){}
