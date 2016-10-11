@@ -4,11 +4,9 @@ using namespace std;
 struct node
 {
     node():suc(0),fail(0){memset(next,0,sizeof(next));}
-    node *next[26],*fail;//efficient when the sentence only contain 
+    node *next[26],*fail;//efficient when the sentence only contain
     int suc;			 //letters of alphabet
 }*root=new node(),*move,*facr;
-
-deque<node*> q;
 
 void insert_string(string s)
 {
@@ -20,6 +18,7 @@ void insert_string(string s)
 
 void build_fail_pointer()
 {
+	deque<node*> q;
 	for(int i=0;i<26;++i)if(root->next[i])
     	{root->next[i]->fail=root;q.push_back(root->next[i]);}
 	bool flag;
@@ -55,8 +54,8 @@ int matchingword(string p)
                 if(move->suc==-1) break;
                 stas+=move->suc;move->suc=-1;
                 /*more time version
-				stas+=move->suc; 
-				*/   
+				stas+=move->suc;
+				*/
 				facr=move->fail;
                 while(facr)
                 {
