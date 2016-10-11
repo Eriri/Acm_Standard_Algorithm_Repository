@@ -7,10 +7,7 @@ using namespace std;
 所有的r[i]都大于0,r[n]无意义算法中置0
 函数结束后，结果放在sa 数组中(名次从1..n)，从sa[1]到sa[n]。s[0]无意义
 */
-int cmp(int *r,int a,int b,int l)
-{
-	return r[a]==r[b]&&r[a+l]==r[b+l];
-}
+int cmp(int *r,int a,int b,int l){return r[a]==r[b]&&r[a+l]==r[b+l];}
 int wa[maxn],wb[maxn],wv[maxn],ws1[maxn];
 void da(int *r,int *sa,int n,int m)
 {

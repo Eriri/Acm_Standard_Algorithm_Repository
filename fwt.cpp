@@ -33,7 +33,7 @@ void untrans(ll a[],int l,int r)
     }
     untrans(a,l,m);untrans(a,m+1,r);
 }
-//or as sample
+//xor as sample
 int main()
 {
 	ll a[maxn],b[maxn],c[maxn];

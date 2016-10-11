@@ -1,8 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 #define maxn 1000
-typedef __int64 ll;
+typedef long long ll;
 
 ll fac[maxn],rfac[maxn],inv[maxn];
 

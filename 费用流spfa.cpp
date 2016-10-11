@@ -1,9 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 #define inf (0x3f3f3f3f)
-#define maxn 1000 
-#define maxm 1000
+#define maxn 10000
+#define maxm 10000
 
 template<class C,class W>
 struct mcmf

@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 typedef long long ll;
 
 ll base[13]={2,3,5,7,11,13,17,19,23,29,31,37,41};//upto 3*10^24
@@ -40,11 +39,6 @@ bool miller_rabin(ll n)
     return true;
 }
 
-int main()
-{
-	ll n;
-	cin>>n;
-	printf("%d\n",miller_rabin(n)==true);
-}
+int main(){}
 
 

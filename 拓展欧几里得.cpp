@@ -1,6 +1,5 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 typedef long long ll;
 
 ll ext_gcd(ll a,ll b,ll &x,ll &y)
