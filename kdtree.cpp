@@ -6,7 +6,7 @@ int S;
 struct kdtree
 {
 	kdtree(){};
-	int k;
+	int root,k;
 	struct node
 	{
 		node(){};
