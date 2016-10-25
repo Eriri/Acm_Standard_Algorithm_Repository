@@ -45,8 +45,8 @@ struct dinic
 		else
 		{
 			int f=0;
-			for(int e=N[u];e;e=E[e].ne)if(level[E[e].vt]==level[u]+1)
-			{stk[top++]=e;f+=update_flow(E[e].vt);--top;}
+			for(int e=N[u];e;e=E[e].ne)if(level[E[e].vt]==level[u]+1&&E[e].cap)
+				{stk[top++]=e;f+=update_flow(E[e].vt);--top;}
 			return f;
 		}
 	}

@@ -39,7 +39,7 @@ rs split(treap* t,int k)
 {
 	if(!t)return rs(NULL,NULL);
 	int d=(size(t->lr[0])>=k);
-	k-=d?0:size(t->lr[0])+1;
+	k-=(d?0:size(t->lr[0])+1);
 	rs r=split(t->lr[d^1],k);
 	t->lr[d^1]=r.pair[d];t->update();r.pair[d]=t;
 	return r;
@@ -50,7 +50,8 @@ treap* merge(rs r)
 	if(!r.pair[0])return r.pair[1];
 	if(!r.pair[1])return r.pair[0];
 	int d=r.pair[0]->key<r.pair[1]->key;
-	r.pair[d^1]->lr[d]=merge(rs(r.pair[d^1]->lr[d^1],r.pair[d]));
+	if(d)r.pair[d^1]->lr[d]=merge(rs(r.pair[d^1]->lr[d],r.pair[d]));
+	else r.pair[d^1]->lr[d]=merge(rs(r.pair[d],r.pair[d^1]->lr[d]));
 	r.pair[d^1]->update();
 	return r.pair[d^1];
 }
@@ -60,14 +61,14 @@ int find(int k)
 	rs L=split(root,k-1);
 	rs R=split(L.pair[1],1);
 	int ans=R.pair[0]?R.pair[0]->val:-1;
-	root=merge(rs(L.pair[0],merge(R)));
+	root=merge(rs(L.pair[0],merge(R)));	
 	return ans;
 }
 
 int get(treap* n,int v)
 {
 	if(!n)return 0;
-	return v<n->val?get(n->lr[0],v):get(n->lr[1],v)+size(n->lr[0])+1;
+	return (v<=n->val)?get(n->lr[0],v):(get(n->lr[1],v)+size(n->lr[0])+1);
 }
 
 void insert(int v)
@@ -80,8 +81,8 @@ void insert(int v)
 void remove(int v)
 {
 	int k=get(root,v);
-	rs L=split(root,k-1);rs R=split(L.pair[1],1);
-	root=merge(L.pair[0],R.pair[1]);
+	rs L=split(root,k);rs R=split(L.pair[1],1);
+	root=merge(rs(L.pair[0],R.pair[1]));
 }
 
 int main(){};
