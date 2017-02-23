@@ -33,4 +33,11 @@ int insert(int now,int l,int r,int p,int v)
 	return id;
 }
 
+int findkth(int ln,int rn,int l,int r,int k)
+{
+	if(l==r)return l;
+	else if(k>tree[tree[rn].l].n-tree[tree[ln].l].n)return find(tree[ln].r,tree[rn].r,(l+r)/2+1,r,k-(tree[tree[rn].l].n-tree[tree[ln].l].n));
+	else return find(tree[ln].l,tree[rn].r,l,(l+r)/2,k);
+}
+
 int main(){}
