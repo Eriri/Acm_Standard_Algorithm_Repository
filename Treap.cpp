@@ -9,48 +9,48 @@ struct treap
     int key,val,sz;
     treap* lr[2];
 }*T[maxn];
-void resize(treap* node)
+void resize(treap* n)
 {
-    if(!node)return;
+    if(!n)return;
     int sz=0;
-    if(node->lr[0])sz+=node->lr[0]->sz;
-    if(node->lr[1])sz+=node->lr[1]->sz;
-    node->sz=sz+1;return;
+    if(n->lr[0])sz+=n->lr[0]->sz;
+    if(n->lr[1])sz+=n->lr[1]->sz;
+    n->sz=sz+1;return;
 }
-treap* rotate(treap* node,int d)//0->left:root=new root->right;
+treap* rotate(treap* n,int d)//0->left:root=new root->right;
 {
-    treap* t=node->lr[d];
-    node->lr[d]=t->lr[d^1];t->lr[d^1]=node;
-    resize(node);resize(t);return t;
+    treap* t=n->lr[d];
+    n->lr[d]=t->lr[d^1];t->lr[d^1]=n;
+    resize(n);resize(t);return t;
 }
-treap* maintain(treap* node)
+treap* maintain(treap* n)
 {
-    if(node->lr[0]&&node->lr[0]->val<node->val)node=rotate(node,0);
-    if(node->lr[1]&&node->lr[1]->val<node->val)node=rotate(node,1);
-    resize(node);return node;
+    if(n->lr[0]&&n->lr[0]->val<n->val)n=rotate(n,0);
+    if(n->lr[1]&&n->lr[1]->val<n->val)n=rotate(n,1);
+    resize(n);return n;
 }
-treap* insert(int key,int val,treap* node)
+treap* insert(int key,int val,treap* n)
 {
-    if(node->lr[key>node->key])
-		node->lr[key>node->key]=insert(key,val,node->lr[key>node->key]);
-    else node->lr[key>node->key]=new treap(key,val,1);
-    return node=maintain(node);
+    if(n->lr[key>n->key])
+		n->lr[key>n->key]=insert(key,val,n->lr[key>n->key]);
+    else n->lr[key>n->key]=new treap(key,val,1);
+    return n=maintain(n);
 }
-treap* remove(int key,treap* node)
+treap* remove(int key,treap* n)
 {
-    if(node->key>key)node->lr[0]=remove(key,node->lr[0]);
-    else if(node->key<key)node->lr[1]=remove(key,node->lr[1]);
+    if(n->key>key)n->lr[0]=remove(key,n->lr[0]);
+    else if(n->key<key)n->lr[1]=remove(key,n->lr[1]);
     else
     {
-        if(!node->lr[0]&&!node->lr[1])node=NULL;
-        else if(node->lr[0]&&!node->lr[1])node=node->lr[0];
-        else if(!node->lr[0]&&node->lr[1])node=node->lr[1];
+        if(!n->lr[0]&&!n->lr[1])n=NULL;
+        else if(n->lr[0]&&!n->lr[1])n=n->lr[0];
+        else if(!n->lr[0]&&n->lr[1])n=n->lr[1];
         else{
-            node=rotate(node,0);
-            node->lr[1]=remove(key,node->lr[1]);
+            n=rotate(n,0);
+            n->lr[1]=remove(key,n->lr[1]);
         }
     }
-    resize(node);return node;
+    resize(n);return n;
 }
 
 int main(){};

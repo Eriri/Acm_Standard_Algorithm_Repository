@@ -7,7 +7,7 @@ using namespace std;
 struct node
 {
 	int l,r,n;
-}tree[maxm];
+}T[maxm];
 
 int cnt=1;
 
@@ -16,8 +16,8 @@ int init(int l,int r)
 	int id=cnt++;
 	if(l!=r)
 	{
-		tree[id].l=init(l,(l+r)/2);
-		tree[id].r=init((l+r)/2+1,r);
+		T[id].l=init(l,(l+r)/2);
+		T[id].r=init((l+r)/2+1,r);
 	}
 	return id;
 }
@@ -25,19 +25,19 @@ int init(int l,int r)
 int insert(int now,int l,int r,int p,int v)
 {
 	int id=cnt++;
-	tree[id].n=tree[now].n+v;
+	T[id].n=T[now].n+v;
 	if(l==r)return id;
-	tree[id].l=tree[now].l;tree[id].r=tree[now].r;
-	if(p>(l+r)/2)tree[id].r=insert(tree[now].r,(l+r)/2+1,r,p,v);
-	else tree[id].l=insert(tree[now].l,l,(l+r)/2,p,v);		
+	T[id].l=T[now].l;T[id].r=T[now].r;
+	if(p>(l+r)/2)T[id].r=insert(T[now].r,(l+r)/2+1,r,p,v);
+	else T[id].l=insert(T[now].l,l,(l+r)/2,p,v);		
 	return id;
 }
 
 int findkth(int ln,int rn,int l,int r,int k)
 {
 	if(l==r)return l;
-	else if(k>tree[tree[rn].l].n-tree[tree[ln].l].n)return find(tree[ln].r,tree[rn].r,(l+r)/2+1,r,k-(tree[tree[rn].l].n-tree[tree[ln].l].n));
-	else return find(tree[ln].l,tree[rn].r,l,(l+r)/2,k);
+	else if(k>T[T[rn].l].n-T[T[ln].l].n)return find(T[ln].r,T[rn].r,(l+r)/2+1,r,k-(T[T[rn].l].n-T[T[ln].l].n));
+	else return find(T[ln].l,T[rn].r,l,(l+r)/2,k);
 }
 
 int main(){}
