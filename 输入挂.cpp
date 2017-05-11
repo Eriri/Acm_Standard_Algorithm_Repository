@@ -21,7 +21,4 @@ inline bool CIN(T &ans)
     return true;
 }
 
-int main()
-{
-	
-}
+int main(){}
