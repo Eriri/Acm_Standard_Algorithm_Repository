@@ -4,35 +4,33 @@ using namespace std;
 #define maxn 1000
 #define maxm 1000
 
-int top,ts,scc,dfn[maxn],low[maxn],N[maxn];
-bool vis[maxn],instk[maxn];
+int top,ts,scc,dfn[maxn],low[maxn];
+bool vis[maxn],ins[maxn];
 stack<int> stk;
-
-struct edge
-{
-	edge(){};
-	edge(int v,int n):vt(v),ne(n){};
-	int vt,ne;
-}E[maxm];
+vector<int> N[maxn];
 
 void dfs(int u)
 {
-	stk.push(u);vis[u]=instk[u]=true;dfn[u]=low[u]=ts;
-	for(int e=N[u];e;e=E[e].ne)
+	stk.push(u);vis[u]=ins[u]=true;dfn[u]=low[u]=ts;
+	for(auto v:N[u])
 	{
-		if(vis[E[e].vt]==true){if(instk[E[e].vt]==true)low[n]=min(low[n],low[E[e].vt]);}
-		else{++ts;dfs(E[e].vt);low[n]=min(low[n],low[E[e].vt]);}
+		if(vis[v]){if(ins[v])low[u]=min(low[u],low[v]);}
+		else {++ts;dfs(v);low[u]=min(low[u],low[v]);}
 	}
-	if(low[n]==dfn[n])
+	if(low[u]==dfn[u])
 	{
 		++scc;
-		while(stk.top()!=n){top=stk.top();stk.pop();instk[top]=false;}
-		stk.pop();instk[n]=false;
+		do{
+			top=stk.top();stk.pop();
+			ins[top]=false;
+		}while(top!=u);
 	}
 }
+
 void tarjan(int u)
 {
 	while(!stk.empty())stk.pop();
 	ts=1;dfs(u);
 }
+
 int main(){}
