@@ -1,4 +1,4 @@
-#include<bits\stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define maxn 1000
