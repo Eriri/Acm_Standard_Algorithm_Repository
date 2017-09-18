@@ -16,7 +16,7 @@ inline bool CIN(T &ans)
     do{
         ans=(ans<<1)+(ans<<3)+*ps-48;
         buf_in;
-    }while(isdigit(*ps)&&ps!=ps);
+    }while(isdigit(*ps)&&ps!=pe);
     ans*=op;
     return true;
 }
