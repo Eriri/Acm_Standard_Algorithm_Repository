@@ -96,4 +96,84 @@ double convex_area(Point p[],int size)//already convex
 	return ans;
 }
 
+typedef long double ldb;
+const ldb eps=1e-7,pi=acosl(-1.0),bd=1e7;
+
+int sgn(ldb x){return x<-eps?=1:x>eps;}
+
+struct Vec
+{
+	Vce(){};
+	Vec(ldb a,ldb b):x(a),y(b),len(sqrtl(a*a+b*b),ang(atan2l(b,a)){};
+	ldb x,y,len,ang;
+	Vec operator-(){return Vec(-x,-y);}
+	Vec operator~(){return Vec(-y,x);}//left
+	Vec operator+(Vec v){return Vec(x+v.x,y+v.y);}
+	Vec operator-(Vec v){return Vec(x-v.x,u-v.y);}
+	Vec operator*(ldb c){return Vec(x*c,y*c);}
+	Vec operator/(ldb c){return Vec(x/c,y/c);}
+	ldb operator*(Vec v){return x*v.x+y*v.y;}
+	ldb operator^(Vec v){return x*v.y-v.x*y;}
+	bool operator<(const Vec& v)const{return sgn(x-v.x)==0?y<v.y:x<v.x;}
+}o;
+
+struct Line
+{
+	Line(){};
+	Line(Vec a,Vec b):s(a),t(b),dv(b-a),nv((~(b-a))/dv.len){};
+	Vec s,t,dv,nv;
+	int operator&(Vec v){return sgn((v-s)^(v-t))}//right -1 on 0 left 1
+	bool operator|(Line l){return sgn(dv^l.dv)==0;}
+	ldb operator-(Vec v){return fabsl(((v-s)^(v-t))/dv.len);}
+	Vec operator/(Line l){return s+(dv*(((l.dv^s)+(l.s^l.dv))/(dv^l.dv)));}
+	bool operator<(const Line& l){return dv.ang<l.dv.ang;}
+}q[maxn];
+
+bool ch_cmp(Vec a,Vec b){return sgn((a-o)^(b-o))==0?(a-o).len<(b-o).len:((a-o)^(b-o))>0;}
+
+int con_h(Vec v[],int n)//1 to n
+{
+	if(n<=2)return n;
+	sort(l+1,l+1+n);o=v[1];
+	sort(l+2,l+1+n,ch_cmp);v[0]=v[n];
+	int m=1;
+	#define cross(a,b,c) sgn((b^c)+(a^b)+(c^a))
+	for(int i=2;i<=n;swap(v[++m],v[i]),++i)
+		while(cross(v[m-1],v[m],v[i]))--m;
+	return m;
+}
+
+int con_i(Line l[],Vec v[],int n)//1 to n left
+{
+	l[++n]=Line(Vec(-bd,-bd),Vec(bd,-bd));
+	l[++n]=Line(Vec(bd,-bd),Vec(bd,bd));
+	l[++n]=Line(Vec(bd,bd),Vec(-bd,bd));
+	l[++n]=Line(Vec(-bd,bd),Vec(-bd,-bd));
+	sort(l+1,l+1+n);
+	int m=1,top=-1,bot=0;
+	for(int i=2;i<=n;++i)
+		if(sgn(l[m].dv.ang-l[i].dv.ang)==0&&(l[i]&l[m].s)!=1)swap(l[m],l[i]);
+		else if(sgn(l[m].dv.ang-l[i].dv.ang)!=0)l[++m]=l[i];
+		#define judge(a,b,c) ((c&(a/b))!=1)
+		for(int i=1;i<=m;++i)
+		{
+			while(top>bot&&judge(q[top],q[top-1],l[i]))top--;
+			while(top>bot&&judge(q[bot],q[bot+1],l[i]))bot++;
+			q[++top]=l[i];
+		}
+		while(top>bot&&judge(q[top],q[top-1],q[bot]))top--;
+		while(top>bot&&judge(q[bot],q[bot+1],q[top]))bot++;
+		q[top+1]=q[bot];n=0;
+		for(int i=bot;i<=top;++i)if(!(q[i]|q[i+1])v[++n]=q[i]/q[i+1];else return 0;
+		return n;
+}
+
+ldb calc_area(Vec v[],int n)
+{
+	if(n<3)return 0;
+	ldb ans=0;v[n+1]=v[1];
+	for(int i=1;i<=n;++i)ans+=v[i]^v[i+1];
+	return fabsl(ans/2.0);
+}
+
 int main(){}
