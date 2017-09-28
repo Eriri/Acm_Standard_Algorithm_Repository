@@ -121,6 +121,24 @@ struct Line
 {
 	Line(){};
 	Line(Vec a,Vec b):s(a),t(b),dv(b-a),nv((~(b-a))/dv.len){};
+	Line(ldb a,ldb b,ldb c)//ax+by+c>=0
+	{
+		if(sgn(a)*sgn(b)==0)
+		{
+			s=Vec(sgn(a)?-c/a:0,sgn(b)?-c/b:0);
+			dv=Vec(sgn(b),-sgn(a));nv=~dv;t=s+dv;
+		}
+		else
+		{
+			if(sgn(c)!=0)
+			{
+				s=Vec(-c/a,0),t=Vec(0,-c/b);
+				if(sgn(c)*sgn(Vec(-c/a,0)^Vec(0,-c/b))!=1)swap(s,t);
+			}
+			else s=Vec(0,0),t=Vec(sgn(b),sgn(b)*(-a/b));
+			dv=(t-s);nv=~dv/dv.len;
+		}
+	}     
 	Vec s,t,dv,nv;
 	int operator&(Vec v){return sgn((v-s)^(v-t))}//right -1 on 0 left 1
 	bool operator|(Line l){return sgn(dv^l.dv)==0;}
