@@ -5,17 +5,39 @@ set shiftwidth=4
 set cindent
 set nu
 set autochdir
+set gfn=Monospace\Regular\16
 cd ~/vim
 autocmd BufNewFile *.cpp exec ":call SetTitle()"
 func SetTitle()
-	call append(0,"#include<bits/stdc++.h>")
-	call append(1,"using namespace std;")
-	call append(2,"int main()")
-	call append(3,"{")
-	call append(4,"#ifdef DEBUG")
-	call append(5,'    freopen("in","r",stdin);')
-	call append(6,"#endif")
-	call append(7,"}")
+	let l = 0
+	let l = l + 1 | call setline(l,'#include<bits/stdc++.h>')
+	let l = l + 1 | call setline(l,'using namespace std;')
+	let l = l + 1 | call setline(l,'#define rep(i,s,t) for(int i=s;i<=t;++i)')
+	let l = l + 1 | call setline(l,'#define repb(i,s,t) for(int i=s;i<=t;++i)')
+	let l = l + 1 | call setline(l,'#define lepb(i,s,t) for(int i=s;i>=t;--i)')
+	let l = l + 1 | call setline(l,'#define pb push_back')
+	let l = l + 1 | call setline(l,'#define mp make_pair')
+	let l = l + 1 | call setline(l,'#define sz(x) ((int)x.size())')
+	let l = l + 1 | call setline(l,'#define all(x) x.begin(),x.end()')
+	let l = l + 1 | call setline(l,'#define fi first')
+	let l = l + 1 | call setline(l,'#define se second')
+	let l = l + 1 | call setline(l,'#define mst(a,b) memset(a,b,sizeof(a))')
+	let l = l + 1 | call setline(l,'#define pt(x) cout<<#x<<"="<<x<<" "')
+	let l = l + 1 | call setline(l,'#define ptl(x) cout<<#x<<"="<<x<<"\n"')
+	let l = l + 1 | call setline(l,'typedef long long ll;')
+	let l = l + 1 | call setline(l,'typedef pair<int,int> pii')
+	let l = l + 1 | call setline(l,'const int inf = 0x3f3f3f3f')
+	let l = l + 1 | call setline(l,'const ll linf = ~0LL>>1')
+	let l = l + 1 | call setline(l,'const double eps = 1e-7')
+	let l = l + 1 | call setline(l,'const double pi = acos(-1.0)')
+	let l = l + 1 | call setline(l,'#define maxn 10004')
+	let l = l + 1 | call setline(l,'')
+	let l = l + 1 | call setline(l,'int main()')
+	let l = l + 1 | call setline(l,'{')
+	let l = l + 1 | call setline(l,'#ifdef DEBUG')
+	let l = l + 1 | call setline(l,'	freopen("in","r",stdin)')
+	let l = l + 1 | call setline(l,'#endif')
+	let l = l + 1 | call setline(l,'}')
 endfunc
 func! Debug()
 	exec "w"
