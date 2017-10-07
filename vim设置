@@ -2,9 +2,11 @@ colorscheme morning
 syntax on
 set tabstop=4
 set shiftwidth=4
-set cindent
+set softtabstop=4
 set nu
+set cindent
 set autochdir
+set noexpandtab
 set gfn=Monospace\Regular\16
 cd ~/vim
 autocmd BufNewFile *.cpp exec ":call SetTitle()"
@@ -25,11 +27,11 @@ func SetTitle()
 	let l = l + 1 | call setline(l,'#define pt(x) cout<<#x<<"="<<x<<" "')
 	let l = l + 1 | call setline(l,'#define ptl(x) cout<<#x<<"="<<x<<"\n"')
 	let l = l + 1 | call setline(l,'typedef long long ll;')
-	let l = l + 1 | call setline(l,'typedef pair<int,int> pii')
-	let l = l + 1 | call setline(l,'const int inf = 0x3f3f3f3f')
-	let l = l + 1 | call setline(l,'const ll linf = ~0LL>>1')
-	let l = l + 1 | call setline(l,'const double eps = 1e-7')
-	let l = l + 1 | call setline(l,'const double pi = acos(-1.0)')
+	let l = l + 1 | call setline(l,'typedef pair<int,int> pii;')
+	let l = l + 1 | call setline(l,'const int inf = 0x3f3f3f3f;')
+	let l = l + 1 | call setline(l,'const ll linf = ~0LL>>1;')
+	let l = l + 1 | call setline(l,'const double eps = 1e-7;')
+	let l = l + 1 | call setline(l,'const double pi = acos(-1.0);')
 	let l = l + 1 | call setline(l,'#define maxn 10004')
 	let l = l + 1 | call setline(l,'')
 	let l = l + 1 | call setline(l,'int main()')
