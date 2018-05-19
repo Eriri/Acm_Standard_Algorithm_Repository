@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define PI (acos(-1.0))
+const double PI = (acos(-1.0));
 typedef complex<double> cpd;
 typedef long long ll;
 
