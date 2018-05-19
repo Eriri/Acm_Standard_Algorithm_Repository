@@ -24,6 +24,7 @@ void fft(cpd C[],int len,int s)
 			}
 		}
 	}
+	if(s==-1)for(i=0;i<len;++i)C[i]=C[i]/(double)len;
 }
 
 ll P=(17LL<<27)+1,G=3;//P=(15LL<<27)+1,G=31;
